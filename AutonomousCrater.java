@@ -20,15 +20,6 @@ import java.util.List;
 public class AutonomousCrater extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor frontLeft;
-    private DcMotor frontRight;
-    private DcMotor backLeft;
-    private DcMotor backRight;
-    private DcMotor leftMotor;
-    private DcMotor rightMotor;
-    private DcMotor intakeMotor;
-    private CRServo leftWheel;
-    private CRServo rightWheel;
 
     boolean hasGold = false;
 
@@ -112,9 +103,9 @@ public class AutonomousCrater extends LinearOpMode {
             pause();
             moveToPos(-1, -1, -22, -22);
             pause();
-            intakeMotor.setPower(.25);
+            HardwareSigma.intakeMotor.setPower(.25);
             sleep(500);
-            intakeMotor.setPower(0);
+            HardwareSigma.intakeMotor.setPower(0);
         }
         if(x.equals("Left")) {
             moveToPos(.5, -.5, 1.5, -1.5);
@@ -149,9 +140,9 @@ public class AutonomousCrater extends LinearOpMode {
         pause();
         moveToPos(-5, .5, 10, 10);
         pause();
-        intakeMotor.setPower(.25);
+        HardwareSigma.intakeMotor.setPower(.25);
         sleep(500);
-        intakeMotor.setPower(0);
+        HardwareSigma.intakeMotor.setPower(0);
     }
 
     private void finish() {
@@ -164,54 +155,28 @@ public class AutonomousCrater extends LinearOpMode {
     }
 
     public void dropMarker() {
-        intakeMotor.setPower(.25);
+        HardwareSigma.intakeMotor.setPower(.25);
         sleep(500);
-        intakeMotor.setPower(0);
+        HardwareSigma.intakeMotor.setPower(0);
         outtake();
-        intakeMotor.setPower(-0.5);
+        HardwareSigma.intakeMotor.setPower(-0.5);
         sleep(1000);
-        intakeMotor.setPower(0);
+        HardwareSigma.intakeMotor.setPower(0);
     }
 
     public void outtake()
     {
-        leftWheel.setDirection(CRServo.Direction.REVERSE);
-        rightWheel.setDirection(CRServo.Direction.FORWARD);
-        leftWheel.setPower(1);
-        rightWheel.setPower(1);
+        HardwareSigma.leftWheel.setDirection(CRServo.Direction.REVERSE);
+        HardwareSigma.rightWheel.setDirection(CRServo.Direction.FORWARD);
+        HardwareSigma.leftWheel.setPower(1);
+        HardwareSigma.rightWheel.setPower(1);
         sleep(2000);
-        leftWheel.setPower(0);
-        rightWheel.setPower(0);
+        HardwareSigma.leftWheel.setPower(0);
+        HardwareSigma.rightWheel.setPower(0);
     }
 
     private void initialize() {
-        frontLeft = hardwareMap.get(DcMotor.class, "FrontLeft");
-        frontRight = hardwareMap.get(DcMotor.class, "FrontRight");
-        backLeft = hardwareMap.get(DcMotor.class, "BackLeft");
-        backRight = hardwareMap.get(DcMotor.class, "BackRight");
-
-        frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        frontRight.setDirection(DcMotor.Direction.FORWARD);
-        backLeft.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.FORWARD);
-
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        leftMotor = hardwareMap.get(DcMotor.class, "LeftMotor");
-        rightMotor = hardwareMap.get(DcMotor.class, "RightMotor");
-
-        leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        rightMotor.setDirection(DcMotor.Direction.FORWARD);
-
-
-        intakeMotor = hardwareMap.get(DcMotor.class, "IntakeMotor");
-        intakeMotor.setDirection(DcMotor.Direction.REVERSE);
-
-        leftWheel = hardwareMap.get(CRServo.class, "Left Servo");
-        rightWheel = hardwareMap.get(CRServo.class, "Right Servo");
+        HardwareSigma.init(hardwareMap);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -219,18 +184,15 @@ public class AutonomousCrater extends LinearOpMode {
 
     //move robot function. uses time. dont use this
     private void move(double leftPower, double rightPower, long ms) {
-        frontLeft.setPower(leftPower);
-        frontRight.setPower(rightPower);
-        backLeft.setPower(leftPower);
-        backRight.setPower(rightPower);
-        try {
-            Thread.sleep(ms);
-        } catch (Exception e) {
-        }
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
-        backLeft.setPower(0);
-        backRight.setPower(0);
+        HardwareSigma.frontLeft.setPower(leftPower);
+        HardwareSigma.frontRight.setPower(rightPower);
+        HardwareSigma.backLeft.setPower(leftPower);
+        HardwareSigma.backRight.setPower(rightPower);
+        sleep(ms);
+        HardwareSigma.frontLeft.setPower(0);
+        HardwareSigma.frontRight.setPower(0);
+        HardwareSigma.backLeft.setPower(0);
+        HardwareSigma.backRight.setPower(0);
     }
 
     private void pause() {
@@ -239,20 +201,20 @@ public class AutonomousCrater extends LinearOpMode {
 
     //move a certain amount in inches. inL and inR are amount of movement in inches for the left and right motors
     private void moveToPos(double leftPower, double rightPower, double inL, double inR) {
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        HardwareSigma.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        HardwareSigma.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        HardwareSigma.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        HardwareSigma.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        HardwareSigma.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        HardwareSigma.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        HardwareSigma.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        HardwareSigma.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        frontLeft.setPower(-leftPower);
-        backLeft.setPower(-leftPower);
-        frontRight.setPower(-rightPower);
-        backRight.setPower(-rightPower);
+        HardwareSigma.frontLeft.setPower(-leftPower);
+        HardwareSigma.backLeft.setPower(-leftPower);
+        HardwareSigma.frontRight.setPower(-rightPower);
+        HardwareSigma.backRight.setPower(-rightPower);
 
         int targetL = convertToTicks(inL);
         int targetR = convertToTicks(inR);
@@ -260,37 +222,37 @@ public class AutonomousCrater extends LinearOpMode {
         while (opModeIsActive()) {
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("encoder-frontLeft: ", frontLeft.getCurrentPosition());
-            telemetry.addData("encoder-backLeft: ", backLeft.getCurrentPosition());
-            telemetry.addData("encoder-frontRight: ", frontRight.getCurrentPosition());
-            telemetry.addData("encoder-backRight: ", backRight.getCurrentPosition());
+            telemetry.addData("encoder-frontLeft: ", HardwareSigma.frontLeft.getCurrentPosition());
+            telemetry.addData("encoder-backLeft: ", HardwareSigma.backLeft.getCurrentPosition());
+            telemetry.addData("encoder-frontRight: ", HardwareSigma.frontRight.getCurrentPosition());
+            telemetry.addData("encoder-backRight: ", HardwareSigma.backRight.getCurrentPosition());
             telemetry.update();
 
             boolean POOOOOWER = false;
             boolean MOREPOOOOWER = false;
             if (targetL > 0) {
-                if (frontLeft.getCurrentPosition() > targetL || backLeft.getCurrentPosition() > targetL) {
-                    frontLeft.setPower(0);
-                    backLeft.setPower(0);
+                if (HardwareSigma.frontLeft.getCurrentPosition() > targetL || HardwareSigma.backLeft.getCurrentPosition() > targetL) {
+                    HardwareSigma.frontLeft.setPower(0);
+                    HardwareSigma.backLeft.setPower(0);
                     POOOOOWER = true;
                 }
             } else {
-                if (frontLeft.getCurrentPosition() < targetL || backLeft.getCurrentPosition() < targetL) {
-                    frontLeft.setPower(0);
-                    backLeft.setPower(0);
+                if (HardwareSigma.frontLeft.getCurrentPosition() < targetL || HardwareSigma.backLeft.getCurrentPosition() < targetL) {
+                    HardwareSigma.frontLeft.setPower(0);
+                    HardwareSigma.backLeft.setPower(0);
                     POOOOOWER = true;
                 }
             }
             if (targetR > 0) {
-                if (frontRight.getCurrentPosition() > targetR || backRight.getCurrentPosition() > targetR) {
-                    frontRight.setPower(0);
-                    backRight.setPower(0);
+                if (HardwareSigma.frontRight.getCurrentPosition() > targetR || HardwareSigma.backRight.getCurrentPosition() > targetR) {
+                    HardwareSigma.frontRight.setPower(0);
+                    HardwareSigma.backRight.setPower(0);
                     MOREPOOOOWER = true;
                 }
             } else {
-                if (frontRight.getCurrentPosition() < targetR || backRight.getCurrentPosition() < targetR) {
-                    frontRight.setPower(0);
-                    backRight.setPower(0);
+                if (HardwareSigma.frontRight.getCurrentPosition() < targetR || HardwareSigma.backRight.getCurrentPosition() < targetR) {
+                    HardwareSigma.frontRight.setPower(0);
+                    HardwareSigma.backRight.setPower(0);
                     MOREPOOOOWER = true;
                 }
             }
@@ -300,10 +262,10 @@ public class AutonomousCrater extends LinearOpMode {
             }
         }
 
-        frontLeft.setPower(0);
-        backLeft.setPower(0);
-        frontRight.setPower(0);
-        backRight.setPower(0);
+        HardwareSigma.frontLeft.setPower(0);
+        HardwareSigma.backLeft.setPower(0);
+        HardwareSigma.frontRight.setPower(0);
+        HardwareSigma.backRight.setPower(0);
     }
 
     //convert ticks to inches
