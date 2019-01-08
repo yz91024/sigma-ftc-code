@@ -1,4 +1,3 @@
-//test
 package org.firstinspires.ftc.teamcode;
 
 import android.graphics.Color;
