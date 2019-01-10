@@ -59,15 +59,15 @@ public class AutonomousCrater extends LinearOpMode {
         if(x.equals("Center")) {
             moveToPos(-.5, .5, -.85, .85);
             pause();
-            moveToPos(.5, .5, 38, 38);
+            moveToPos(.5, .5, 36, 36);
             pause();
-            moveToPos(-.5, -.5, -8, -8);
+            moveToPos(-.5, -.5, -7, -7);
             pause();
             moveToPos(-.5, .5, -28, 28);
             pause();
             moveToPos(-.5, -.5, -48, -48);
             pause();
-            moveToPos(.5, -.5, 16, -16);
+            moveToPos(.5, -.5, 13, -13);
             pause();
             moveToPos(-.5, -.5, -40, -40);
             pause();
@@ -83,9 +83,9 @@ public class AutonomousCrater extends LinearOpMode {
         if(x.equals("Right")) {
             moveToPos(-.5,.5,-7, 7);
             pause();
-            moveToPos(.5,.5,34,34);
+            moveToPos(.5,.5,32,32);
             pause();
-            moveToPos(-.5, -.5, -10, -10);
+            moveToPos(-.5, -.5, -8, -8);
             pause();
             moveToPos(-.5, .5, -22, 22);
             pause();
@@ -108,7 +108,7 @@ public class AutonomousCrater extends LinearOpMode {
             HardwareSigma.intakeMotor.setPower(0);
         }
         if(x.equals("Left")) {
-            moveToPos(.5, -.5, 1.5, -1.5);
+            moveToPos(.5, -.5, 1, -1);
             pause();
             moveToPos(.5, .5, 34, 34);
             pause();
@@ -120,13 +120,13 @@ public class AutonomousCrater extends LinearOpMode {
             pause();
             moveToPos(.5, -.5, 11, -11);
             pause();
-            moveToPos(-.5, -.5, -54, -54);
+            moveToPos(-.5, -.5, -52, -52);
             pause();
             dropMarker();
             pause();
             moveToPos(.5, -.5, 0.5, -0.5);
             pause();
-            moveToPos(1, 1, 112, 112);
+            moveToPos(1, 1, 110, 110);
             pause();
         }
 

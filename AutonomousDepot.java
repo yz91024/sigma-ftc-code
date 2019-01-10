@@ -82,13 +82,13 @@ public class AutonomousDepot extends LinearOpMode {
             pause();
             moveToPos(.5,.5,48,48);
             pause();
-            moveToPos(-.5,.5,-22,22);
+            moveToPos(-.5,.5,-20,20);
             pause();
             moveToPos(.5,.5,30,30);
             pause();
             moveToPos(-.5,-.5,-4,-4);
             pause();
-            moveToPos(-.5,.5,-68,68);
+            moveToPos(-.5,.5,-62,62);
             pause();
             dropMarker();
             pause();
@@ -117,7 +117,7 @@ public class AutonomousDepot extends LinearOpMode {
             pause();
             moveToPos(.5,-.5,10.5,-10.5);
             pause();
-            moveToPos(-.5, -.5, -20, -20);
+            moveToPos(-.5, -.5, -24, -24);
             pause();
             moveToPos(.5,-.5,10,-10);
             pause();
