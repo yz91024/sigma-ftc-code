@@ -78,7 +78,7 @@ public class AutonomousDepot extends LinearOpMode {
             extendArm();
         }
         if(x.equals("Left")) {
-            moveToPos(.5,-.5,1.5,-1.5);
+            moveToPos(.5,-.5,1,-1);
             pause();
             moveToPos(.5,.5,48,48);
             pause();
@@ -92,14 +92,18 @@ public class AutonomousDepot extends LinearOpMode {
             pause();
             dropMarker();
             pause();
-            moveToPos(1, 1, 76, 76);
+            moveToPos(1, 1, 50, 50);
+            pause();
+            moveToPos(.5, -.5, 10, -10);
+            pause();
+            moveToPos(1, 1, 25, 25);
             pause();
             //moveToPos(.5, -.5, 0.5, -0.5);
             //pause();
             extendArm();
         }
         if(x.equals("Right")) {
-            moveToPos(-.5,.5,-8,8);
+            moveToPos(-.5,.5,-7,7);
             pause();
             moveToPos(.5,.5,49,49);
             pause();
